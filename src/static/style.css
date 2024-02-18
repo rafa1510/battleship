@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: rgb(255, 253, 253);
+    height: 100%;
+    display: grid;
+    grid-template:
+        "nav" 100px
+        "main" 1fr
+        / 1fr;
+    font-family: "roboto";
+}
+
+nav {
+    background-color: rgb(213, 245, 255);
+    grid-area: nav;
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    font-size: 2.5rem;
+}
+
+main {
+    grid-area: main;
+    justify-self: center;
+    align-self: center;
+}
+
+.mainText {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    font-size: 1.5rem;
+    padding: 1rem;
+}
+
+.gameboard {
+    display: grid;
+    grid-template-columns: repeat(9, 50px);
+    grid-template-rows: repeat(10, 50px);
+}
+
+.cell {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+}
+
+.titleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.gameContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.shipSetup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shipLabel {
+    display: grid;
+    grid-template-columns: repeat(3, 50px);
+}
+
+dialog {
+    border: 1px solid black;
+}
