@@ -138,7 +138,7 @@ function renderSetupForm() {
         // End label
         const shipEndLabel = document.createElement("label");
         shipEndLabel.className = "shipLabel";
-        shipEndLabel.textContent = "Start:";
+        shipEndLabel.textContent = "End:";
         const endSelectX = document.createElement("select");
         endSelectX.id = `ship${shipNum}EndX`;
         const endSelectY = document.createElement("select");

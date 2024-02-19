@@ -19,7 +19,7 @@ export default class Game {
         if (this.playerTwo.board.allSunk) {
             return true;
         }
-        return `${this.playerTwo.name}'s turn`;
+        return false;
     }
 
     playerTwoTurn(coords) {
