@@ -73,11 +73,43 @@ function renderTurnTitle(player, setup = false) {
     if (!setup) {
         mainText.textContent = `${player.name} Turn - Attack`;
 
+        // Create form that will store our attack coords
+        const attackForm = document.createElement("form");
+        attackForm.className = "attackForm";
+
+        const attackLabel = document.createElement("label");
+        attackLabel.textContent = "Coords:";
+
+        // Create select for X and Y coords
+        const attackXSelect = document.createElement("select");
+        attackXSelect.id = "attackX";
+
+        const attackYSelect = document.createElement("select");
+        attackYSelect.id = "attackY";
+
+        const attackSelects = [attackXSelect, attackYSelect];
+
+        // Create options for both selects
+        for (let i = 0; i < 8; i += 1) {
+            attackSelects.forEach((select) => {
+                const option = document.createElement("option");
+                option.value = i;
+                option.textContent = i;
+                select.appendChild(option);
+            });
+        }
+
         const nextTurn = document.createElement("button");
         nextTurn.textContent = "Next Turn";
 
+        // Append our label, selects & button to attackForm
+        attackLabel.appendChild(attackXSelect);
+        attackLabel.appendChild(attackYSelect);
+        attackForm.appendChild(attackLabel);
+        attackForm.appendChild(nextTurn);
+
         titleContainer.appendChild(mainText);
-        titleContainer.appendChild(nextTurn);
+        titleContainer.appendChild(attackForm);
     } else {
         mainText.textContent = `${player.name} Turn - Setup your Ships`;
         titleContainer.appendChild(mainText);
@@ -87,6 +119,7 @@ function renderTurnTitle(player, setup = false) {
 // render setupForm
 function renderSetupForm() {
     const form = document.createElement("form");
+    form.className = "setupForm";
 
     function renderShipSetup(shipNum) {
         const label = document.createElement("label");

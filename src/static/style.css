@@ -73,7 +73,7 @@ main {
     gap: 2rem;
 }
 
-form {
+.setupForm {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -92,4 +92,9 @@ form {
 
 dialog {
     border: 1px solid black;
+}
+
+.attackForm {
+    display: flex;
+    gap: 1rem;
 }
