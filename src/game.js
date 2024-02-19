@@ -17,7 +17,7 @@ export default class Game {
     playerOneTurn(coords) {
         this.playerTwo.board.receiveAttack(coords);
         if (this.playerTwo.board.allSunk) {
-            return `Game over, ${this.playerOne.name} wins!`;
+            return true;
         }
         return `${this.playerTwo.name}'s turn`;
     }
@@ -25,17 +25,8 @@ export default class Game {
     playerTwoTurn(coords) {
         this.playerOne.board.receiveAttack(coords);
         if (this.playerOne.board.allSunk) {
-            return `Game over, ${this.playerTwo.name} wins!`;
+            return true;
         }
-        return `${this.playerOne.name}'s turn`;
-    }
-
-    nextTurn() {
-        if (this.checkGameover()) {
-            this.gameover();
-        } else {
-            this.playerOneTurn();
-            this.playerTwoTurn();
-        }
+        return false;
     }
 }
