@@ -1,12 +1,10 @@
-// make nav
-function createNav() {
+function initialSetup() {
+    // make nav
     const nav = document.createElement("nav");
     nav.textContent = "Battleship";
     document.body.appendChild(nav);
-}
 
-// make main, titlecontainer, and gameContainer
-function createMain() {
+    // make main, titlecontainer, and gameContainer
     const main = document.createElement("main");
 
     const titleContainer = document.createElement("div");
@@ -62,29 +60,8 @@ function renderGameboard(givenBoard) {
     gameContainer.appendChild(gameboard);
 }
 
-// render a player's board & mockboard for their turn
-function renderGameTurn(player) {
-    // reset gameContainer
-    const gameContainer = document.querySelector(".gameContainer");
-    gameContainer.innerHTML = "";
-
-    // add user's actual gameboard
-    renderGameboard(player.board.board);
-
-    // add user's mock gameboard
-    renderGameboard(player.board.mockBoard);
-
-    // add our main text
-    renderTurnTitle(player);
-}
-
-// make gameSetup
-function renderGameSetup() {}
-// make gameover
-// make setupTItle
-function renderSetupTitle() {}
 // make turnTitle
-function renderTurnTitle(player) {
+function renderTurnTitle(player, setup = false) {
     // reset titleContainer
     const titleContainer = document.querySelector(".titleContainer");
     titleContainer.innerHTML = "";
@@ -92,13 +69,116 @@ function renderTurnTitle(player) {
     // add our main text & next turn button
     const mainText = document.createElement("div");
     mainText.className = "mainText";
-    mainText.textContent = `${player.name} Turn - Attack`;
 
-    const nextTurn = document.createElement("button");
-    nextTurn.textContent = "Next Turn";
+    if (!setup) {
+        mainText.textContent = `${player.name} Turn - Attack`;
 
-    titleContainer.appendChild(mainText);
-    titleContainer.appendChild(nextTurn);
+        const nextTurn = document.createElement("button");
+        nextTurn.textContent = "Next Turn";
+
+        titleContainer.appendChild(mainText);
+        titleContainer.appendChild(nextTurn);
+    } else {
+        mainText.textContent = `${player.name} Turn - Setup your Ships`;
+        titleContainer.appendChild(mainText);
+    }
 }
 
-export { createNav, createMain, renderGameTurn };
+// render setupForm
+function renderSetupForm() {
+    const form = document.createElement("form");
+
+    function renderShipSetup(shipNum) {
+        const label = document.createElement("label");
+        label.className = "shipSetup";
+        label.textContent = `Ship ${shipNum}`;
+
+        // Start label
+        const shipStartLabel = document.createElement("label");
+        shipStartLabel.className = "shipLabel";
+        shipStartLabel.textContent = "Start:";
+        const startSelectX = document.createElement("select");
+        startSelectX.id = `ship${shipNum}StartX`;
+        const startSelectY = document.createElement("select");
+        startSelectY.id = `ship${shipNum}StartY`;
+
+        // End label
+        const shipEndLabel = document.createElement("label");
+        shipEndLabel.className = "shipLabel";
+        shipEndLabel.textContent = "Start:";
+        const endSelectX = document.createElement("select");
+        endSelectX.id = `ship${shipNum}EndX`;
+        const endSelectY = document.createElement("select");
+        endSelectY.id = `ship${shipNum}EndY`;
+
+        const labelList = [startSelectX, startSelectY, endSelectX, endSelectY]; // create a list so we can easily add options to each one
+
+        // Select options
+        for (let i = 0; i < 8; i += 1) {
+            labelList.forEach((currentLabel) => {
+                const option = document.createElement("option");
+                option.value = i;
+                option.textContent = i;
+                currentLabel.appendChild(option);
+            });
+        }
+
+        // Append labels to parent labels
+        shipStartLabel.appendChild(startSelectX);
+        shipStartLabel.appendChild(startSelectY);
+        shipEndLabel.appendChild(endSelectX);
+        shipEndLabel.appendChild(endSelectY);
+
+        label.appendChild(shipStartLabel);
+        label.appendChild(shipEndLabel);
+
+        form.appendChild(label);
+    }
+
+    // Create 5 ships
+    for (let i = 1; i <= 5; i += 1) {
+        renderShipSetup(i);
+    }
+
+    // Create submit button
+    const submitButton = document.createElement("button");
+    submitButton.className = "formSubmitButton";
+    submitButton.textContent = "Submit";
+    form.appendChild(submitButton);
+
+    const gameContainer = document.querySelector(".gameContainer");
+    gameContainer.appendChild(form);
+}
+
+// render a player's board & mockboard for their turn
+function renderGameTurn(player, setup = false) {
+    // add our main text
+    renderTurnTitle(player, setup);
+
+    // reset gameContainer
+    const gameContainer = document.querySelector(".gameContainer");
+    gameContainer.innerHTML = "";
+
+    // add user's actual gameboard
+    renderGameboard(player.board.board);
+
+    if (!setup) {
+        // add user's mock gameboard
+        renderGameboard(player.board.mockBoard);
+    } else {
+        renderSetupForm();
+    }
+}
+
+// make gameover
+function renderGameover(player) {
+    const dialog = document.createElement("dialog");
+    const gameoverText = document.createElement("h1");
+    gameoverText.textContent = `Game over! ${player.name} wins!`;
+
+    dialog.appendChild(gameoverText);
+    document.body.appendChild(dialog);
+    dialog.showModal();
+}
+
+export { initialSetup, renderGameTurn, renderGameover };
