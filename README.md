@@ -1,3 +1,7 @@
-# template-repo
+# battleship
 
-Configures webpack, with production and development configs, ESLint/Prettier, and Jest
+## About
+
+Play the classic game of battleship!
+<br>
+[Click here to check it out](https://rafaelcestti.github.io/battleship)
