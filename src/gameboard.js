@@ -3,6 +3,7 @@ import Ship from "./ship";
 export default class Gameboard {
     constructor() {
         this.board = [];
+        this.mockBoard = [];
         this.missedHits = 0;
         this.allSunk = false;
         this.shipsCount = 0;
@@ -14,10 +15,13 @@ export default class Gameboard {
     #buildBoard() {
         for (let y = 0; y < 8; y += 1) {
             const newRow = [];
+            const newMockRow = [];
             for (let x = 0; x < 8; x += 1) {
                 newRow.push(""); // set each cell in our board to equal ""
+                newMockRow.push("");
             }
             this.board.push(newRow);
+            this.mockBoard.push(newMockRow);
         }
         return true;
     }
@@ -52,6 +56,7 @@ export default class Gameboard {
         // If coord is empty
         if (this.board[x][y] === "") {
             this.board[x][y] = "O"; // change to O which means missed hit
+            this.mockBoard[x][y] = "O";
             this.missedHits += 1;
         }
         // if coord is a ship
@@ -69,6 +74,7 @@ export default class Gameboard {
             }
 
             this.board[x][y] = "X"; // change to X which means a hit
+            this.mockBoard[x][y] = "X";
         }
     }
 }
